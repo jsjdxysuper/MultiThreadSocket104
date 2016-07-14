@@ -4,5 +4,8 @@
 
 #include "stdafx.h"
 
+BOOL ServerState = FALSE;
+int ThreadNum = 0;
 
+CMutex g_mutex(FALSE,_T("ThreadMutex"));
 

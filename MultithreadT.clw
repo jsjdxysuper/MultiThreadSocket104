@@ -12,10 +12,11 @@ Class1=CMultithreadTApp
 Class2=CMultithreadTDlg
 Class3=CAboutDlg
 
-ResourceCount=3
+ResourceCount=4
 Resource1=IDD_ABOUTBOX
 Resource2=IDR_MAINFRAME
 Resource3=IDD_MULTITHREADT_DIALOG
+Resource4=IDR_MENUMAIN
 
 [CLS:CMultithreadTApp]
 Type=0
@@ -28,7 +29,7 @@ Type=0
 HeaderFile=MultithreadTDlg.h
 ImplementationFile=MultithreadTDlg.cpp
 Filter=D
-LastObject=IDC_BUTTON1
+LastObject=IDR_MENUEXIT
 BaseClass=CDialog
 VirtualFilter=dWC
 
@@ -50,9 +51,17 @@ Control4=IDOK,button,1342373889
 [DLG:IDD_MULTITHREADT_DIALOG]
 Type=1
 Class=CMultithreadTDlg
-ControlCount=4
+ControlCount=3
 Control1=IDOK,button,1342242817
 Control2=IDCANCEL,button,1342242816
 Control3=IDC_RICHEDIT_LISTCONINFO,RICHEDIT,1353779332
-Control4=IDC_BUTTON2,button,1342242816
+
+[MNU:IDR_MENUMAIN]
+Type=1
+Class=CMultithreadTDlg
+Command1=IDR_MENUSAVELOGFILE
+Command2=IDR_MENUEXIT
+Command3=IDR_MENUSTART
+Command4=IDR_MENUSTOP
+CommandCount=4
 

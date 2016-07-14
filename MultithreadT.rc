@@ -94,8 +94,7 @@ BEGIN
     PUSHBUTTON      "取消",IDCANCEL,413,30,50,14
     CONTROL         "",IDC_RICHEDIT_LISTCONINFO,"RICHEDIT",ES_MULTILINE | 
                     ES_AUTOHSCROLL | ES_READONLY | WS_BORDER | WS_VSCROLL | 
-                    WS_HSCROLL | WS_TABSTOP,16,15,383,259
-    PUSHBUTTON      "启动服务",IDC_BUTTON2,419,81,50,14
+                    WS_HSCROLL | WS_TABSTOP,16,7,383,267
 END
 
 
@@ -171,12 +170,39 @@ END
 
 /////////////////////////////////////////////////////////////////////////////
 //
+// Menu
+//
+
+IDR_MENUMAIN MENU DISCARDABLE 
+BEGIN
+    POPUP "文件"
+    BEGIN
+        MENUITEM "保存日志",                    IDR_MENUSAVELOGFILE
+        MENUITEM "退出程序",                    IDR_MENUEXIT
+    END
+    POPUP "服务器"
+    BEGIN
+        MENUITEM "启动",                        IDR_MENUSTART
+        MENUITEM "停止",                        IDR_MENUSTOP
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
 // String Table
 //
 
 STRINGTABLE DISCARDABLE 
 BEGIN
     IDS_ABOUTBOX            "关于 MultithreadT(&A)..."
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    IDR_MENUSTART           "启动服务器"
+    IDR_MENUSTOP            "停止服务器"
+    IDR_MENUSAVELOGFILE     "保存日志文件"
 END
 
 #endif    // Chinese (P.R.C.) resources

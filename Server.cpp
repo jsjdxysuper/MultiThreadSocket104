@@ -84,18 +84,24 @@ void ListenMianFunction(HWND dlgH)
 	SOCKADDR_IN addrClient;
 	int len=sizeof(SOCKADDR);
 	
+	SOCKET sockConn;
+	SOCKINFO sockInfo;
 	while(1)
 	{
-		SOCKET sockConn=accept(sockSrv,(SOCKADDR*)&addrClient,&len);
-		SOCKINFO sockInfo;
+		sockConn=accept(sockSrv,(SOCKADDR*)&addrClient,&len);
+		
 		sockInfo.addrClient = addrClient;
 		sockInfo.sockConn = sockConn;
 		sockInfo.dlgH = dlgH;
 
 		LPDWORD lpThreadId = 0;
 		CreateThread(NULL,0,(LPTHREAD_START_ROUTINE)dealWithConnection,(void*)(&sockInfo),0,lpThreadId);
-	}
 
+		if(!ServerState)
+		{
+			break;		
+		}
+	}
 	
 }
 void Server::Start(HWND dlgH)

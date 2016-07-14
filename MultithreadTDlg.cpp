@@ -5,6 +5,7 @@
 #include "MultithreadT.h"
 #include "MultithreadTDlg.h"
 #include "Server.h"
+#include "Common.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -83,8 +84,10 @@ BEGIN_MESSAGE_MAP(CMultithreadTDlg, CDialog)
 	ON_WM_SYSCOMMAND()
 	ON_WM_PAINT()
 	ON_WM_QUERYDRAGICON()
-	ON_BN_CLICKED(IDC_BUTTON2, OnButton2)
 	ON_MESSAGE(WM_CHILDFRAMEDBCLK,OnReceiveMsg)
+	ON_COMMAND(IDR_MENUSTART, OnMenustart)
+	ON_COMMAND(IDR_MENUSTOP, OnMenustop)
+	ON_COMMAND(IDR_MENUEXIT, OnMenuexit)
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
@@ -118,6 +121,10 @@ BOOL CMultithreadTDlg::OnInitDialog()
 	SetIcon(m_hIcon, TRUE);			// Set big icon
 	SetIcon(m_hIcon, FALSE);		// Set small icon
 	
+	CMenu mainMenu;
+	mainMenu.LoadMenu(IDR_MENUMAIN);
+	SetMenu(&mainMenu);
+	mainMenu.Detach();
 	// TODO: Add extra initialization here
 	
 	return TRUE;  // return TRUE  unless you set the focus to a control
@@ -173,26 +180,44 @@ HCURSOR CMultithreadTDlg::OnQueryDragIcon()
 }
 
 
-
-void CMultithreadTDlg::OnButton2() 
+void CMultithreadTDlg::addStr2RichEdit(CString str)
 {
-	// TODO: Add your control notification handler code here
-	Server ser;
-	ser.Start(AfxGetMainWnd()->m_hWnd);
+	CString msg;
+	msg.Format("%s %s",Common::GetTime(),str);
+	m_richEdit_listConInfo.SetSel(-1,-1);
+	m_richEdit_listConInfo.ReplaceSel(msg);
+	
+	m_richEdit_listConInfo.LineScroll(1);
 }
-
-
 afx_msg LRESULT CMultithreadTDlg::OnReceiveMsg(WPARAM wParam, LPARAM lParam)
 {
 	CString *txtChar = (CString*)wParam;
 	int len = (int)lParam;
 
-
-	m_richEdit_listConInfo.SetSel(-1,-1);
-	m_richEdit_listConInfo.ReplaceSel(*txtChar);
-	
-	
-	m_richEdit_listConInfo.LineScroll(1);
+	addStr2RichEdit(*txtChar);
 
 	return 0;
+}
+
+void CMultithreadTDlg::OnMenustart() 
+{
+	// TODO: Add your command handler code here
+	ServerState = TRUE;
+	Server ser;
+	ser.Start(AfxGetMainWnd()->m_hWnd);
+	CString msg;
+	msg.Format("%s 服务启动成功\n",Common::GetTime());
+	addStr2RichEdit(msg);
+}
+
+void CMultithreadTDlg::OnMenustop() 
+{
+	// TODO: Add your command handler code here
+	ServerState = FALSE;
+}
+
+void CMultithreadTDlg::OnMenuexit() 
+{
+	// TODO: Add your command handler code here
+	PostMessage(WM_QUIT,0,0);//最常用
 }

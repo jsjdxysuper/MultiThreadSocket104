@@ -36,15 +36,17 @@ public:
 // Implementation
 protected:
 	HICON m_hIcon;
-
+	void addStr2RichEdit(CString str);
 	// Generated message map functions
 	//{{AFX_MSG(CMultithreadTDlg)
 	virtual BOOL OnInitDialog();
 	afx_msg void OnSysCommand(UINT nID, LPARAM lParam);
 	afx_msg void OnPaint();
 	afx_msg HCURSOR OnQueryDragIcon();
-	afx_msg void OnButton2();
 	afx_msg LRESULT OnReceiveMsg(WPARAM wParam, LPARAM lParam);
+	afx_msg void OnMenustart();
+	afx_msg void OnMenustop();
+	afx_msg void OnMenuexit();
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
 };
